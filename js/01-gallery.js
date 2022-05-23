@@ -9,13 +9,17 @@ gallery.insertAdjacentHTML("afterbegin", markup);
 gallery.addEventListener("click", selectItem);
 function selectItem(event) {
     event.preventDefault();
-    console.log(event.target.nodeName);
     if (event.target.nodeName !== "IMG") {
         return;
     }
         const imageLink = event.target.dataset.source;
-        const instance = basicLightbox.create(`
+    const instance = basicLightbox.create(`
         <img src="${imageLink}",
-        width="800" height="600">`)
+        width="800" height="600">`);
     instance.show(); 
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            instance.close();
+        }
+    })
 }; 
